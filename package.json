@@ -1,0 +1,42 @@
+{
+  "name": "MassClickOrchestra",
+  "version": "0.0.1",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Gaertner12/MassClickOrchestra.git"
+  },
+  "author": "Tobias Gärtner & Jonas Leitner",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Gaertner12/MassClickOrchestra/issues"
+  },
+  "homepage": "https://github.com/Gaertner12/MassClickOrchestra/issues",
+  "private": true,
+  "dependencies": {
+    "body-parser": "^1.1.2",
+    "cookie-parser": "^1.4.3",
+    "errorhandler": "^1.0.1",
+    "express": "^4.14.0",
+    "express-handlebars": "^3.0.0",
+    "express-session": "^1.14.0",
+    "lodash": "^4.1.0",
+    "method-override": "^1.0.0",
+    "moment": "^2.14.1",
+    "multer": "^1.2.0",
+    "nodemailer": "^2.5.0",
+    "passport": "^0.3.2",
+    "passport-slack-ponycode": "^0.0.2",
+    "rethinkdb": "^2.2.1",
+    "slug": "^0.9.1",
+    "socket.io": "^1.4.5"
+  },
+  "devDependencies": {
+    "nodemon": "^1.10.0"
+  }
+}
