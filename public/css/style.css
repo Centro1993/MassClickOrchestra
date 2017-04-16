@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css?family=Tangerine');
+
+body{
+  margin: 0px;
+  padding: 0px;
+  font-family: 'Tangerine';
+}
+.header{
+  width: 100%;
+  font-size: 40px;
+  line-height: 75px;
+  height: 75px;
+  box-shadow:0px -25px 40px black;
+  letter-spacing: 2px;
+  text-align: center;
+}
+.content{
+  font-family: 'Helvetica';
+  width: 75%;
+  margin: 50px auto;
+}
