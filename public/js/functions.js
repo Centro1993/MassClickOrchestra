@@ -1,3 +1,3 @@
-function createGrid() {
-  
+function createGrid(rows,columns) {
+
 }
