@@ -1,0 +1,4 @@
+-http://codetheory.in/controlling-the-volume-of-an-audio-file-in-javascript/
+  soundimplementierung über webAPI
+
+-less debug in produktion ausschalten
