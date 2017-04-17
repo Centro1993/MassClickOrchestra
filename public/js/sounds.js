@@ -1,9 +1,11 @@
 var sound = new Howl({
-  src: ['./sounds/beep6.mp3'],
+  src: ['./sounds/piano.wav'],
 
     onloaderror: function(error) {
         console.log('Howler encountered error: ', error);
     }
 });
 
-sound.play();
+let id1 = sound.play();
+
+sound.fade(1, 0, 500, id1);
