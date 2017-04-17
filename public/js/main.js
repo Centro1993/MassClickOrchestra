@@ -1,4 +1,7 @@
 $( document ).ready(function() {
+
+  $('.backgroundWrapp').height($(window).height);
+  
   $('.box').hover(function(){
     $(this).css('opacity','0.8');
 
