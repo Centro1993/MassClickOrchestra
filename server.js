@@ -24,7 +24,7 @@ var express         = require("express"),
 // ====================
 
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
-app.use('/css', expressLess(publicDir + '/less', { cache: true, debug: true }));
+app.use('/css', expressLess(publicDir + '/less', { cache: false, debug: true }));
 app.set('view engine', 'handlebars');
 app.set('port', PORT);
 app.use(methodOverride());
