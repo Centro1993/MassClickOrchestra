@@ -9,6 +9,13 @@ body{
   width: 100%;
   z-index: -1;
   position: absolute;
+  background-image: url(/images/audience.jpg);
+  background-size: cover;
+  -webkit-filter: blur(2px);
+  -moz-filter: blur(2px);
+  -o-filter: blur(2px);
+  -ms-filter: blur(2px);
+  filter: blur(2px);
 }
 .header{
   width: 100%;
@@ -18,6 +25,7 @@ body{
   box-shadow:0px -25px 40px black;
   letter-spacing: 2px;
   text-align: center;
+  background-color: white;
 }
 .content{
   font-family: 'Helvetica';
@@ -32,7 +40,9 @@ body{
 .grid{
   width: 100%;
   position: relative;
-  height: 480px;
+  background-color: rgba(255, 255, 255, 0.3);
+  height: 530px;
+  padding: 25px;
   .takte{
     width: 300px;
     display: grid;
@@ -42,15 +52,16 @@ body{
     background-color: #fff;
     margin-left: 10px;
     color: #444;
+    background: transparent;
     .box{
       background-color: #444;
+      box-sizing: border-box;
       color: #fff;
       border-radius: 5px;
       padding: 10px;
       font-size: 150%;
-      height: 10px;
-      opacity: 0.3;
-
+      height: 30px;
+      opacity: 0.5;
       transition: opacity 0.3s;
       -webkit-transition: opacity 0.3s;
       -ms-transition: opacity 0.3s;
