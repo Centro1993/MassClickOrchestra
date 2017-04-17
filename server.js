@@ -15,7 +15,7 @@ var express         = require("express"),
     exphbs          = require('express-handlebars'),
     bodyParser      = require('body-parser'),
     session         = require('express-session'),
-    less            = require('express-less');
+    expressLess     = require('express-less');
 
 
 
@@ -24,6 +24,7 @@ var express         = require("express"),
 // ====================
 
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
+app.use('/css', expressLess(publicDir + '/less', { cache: true, debug: true }));
 app.set('view engine', 'handlebars');
 app.set('port', PORT);
 app.use(methodOverride());
