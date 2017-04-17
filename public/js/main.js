@@ -1,3 +1,14 @@
-$(document).load(function () {
+$( document ).ready(function() {
+
+  $('.backgroundWrapp').height($(window).height);
   
+  $('.box').hover(function(){
+    $(this).css('opacity','0.8');
+
+  },function(){
+    $(this).css('opacity','0.3');
+    if($(this).hasClass('active')){
+      $(this).css('opacity','0.6');
+    }
+  });
 });
