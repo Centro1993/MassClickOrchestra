@@ -25,7 +25,7 @@ function createGrid(bars) { //Erstellt Grid
 			$(this).html('');
 		} else {
 			$(this).addClass('active');
-			var coords = $(this).attr('class').substring($(this).attr('class').indexOf(' '), $(this).attr('class').lastIndexOf(' '));
+		//	var coords = $(this).attr('class').substring($(this).attr('class').indexOf(' '), $(this).attr('class').lastIndexOf(' '));
 			$(this).html(coords);
 		}
 	});
