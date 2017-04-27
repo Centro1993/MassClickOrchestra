@@ -4,6 +4,7 @@ body{
   margin: 0px;
   padding: 0px;
   font-family: 'Tangerine';
+  overflow: hidden;
 }
 .backgroundWrapp{
   width: 100%;
@@ -11,11 +12,38 @@ body{
   position: absolute;
   background-image: url(/images/audience.jpg);
   background-size: cover;
+  opacity: 0.5;
   -webkit-filter: blur(2px);
   -moz-filter: blur(2px);
   -o-filter: blur(2px);
   -ms-filter: blur(2px);
   filter: blur(2px);
+}
+.curtainLeft{
+  background-image: url(/images/vorhanglinks.png);
+  background-size: cover;
+  width: 500px;
+  z-index: 2;
+  left: 0px;
+  top: 0px;
+  position: absolute;
+  transition: all 1s;
+  -webkit-transition: all 1s;
+  -ms-transition: all 1s;
+  -o-transition: all 1s;
+}
+.curtainRight{
+  background-image: url(/images/vorhangrechts.png);
+  background-size: cover;
+  width: 500px;
+  z-index: 2;
+  right: 0px;
+  top: 0px;
+  position: absolute;
+  transition: all 1s;
+  -webkit-transition: all 1s;
+  -ms-transition: all 1s;
+  -o-transition: all 1s;
 }
 .header{
   width: 100%;
@@ -26,7 +54,10 @@ body{
   letter-spacing: 2px;
   text-align: center;
   color: white;
-  background-color: rgba(255,255,255,0.3);
+  background-image: url(/images/vorhangoben.jpg);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  background-size: cover;
+  z-index: 10;
 }
 .content{
   font-family: 'Helvetica';
@@ -37,6 +68,8 @@ body{
   height: 600px;
   width: 75%;
   margin: 50px auto;
+  border: 3px solid white;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 .grid{
   width: 100%;
@@ -69,14 +102,33 @@ body{
       -o-transition: opacity 0.3s;
       font-size: 14px;
       text-align: center;
+      &:hover{
+        opacity: 0.7;
+      }
+      &.active{
+        opacity: 0.9;
+      }
     }
   }
 }
 .playButton{
   height: 50px;
   width: 50px;
-  background-color: blue;
+  background-image: url('/images/playButton.png');
+  background-size: cover;
   position: absolute;
   left: 50%;
   margin-left: -25px;
+  cursor: pointer;
+  left: 50%;
+  background-color: white;
+  border-radius: 25px;
+  transition: all 0.6s;
+  -webkit-transition: all 0.6s;
+  -ms-transition: all 0.6s;
+  &:hover{
+    transform: scale(1.1);
+    -webkit-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+  }
 }
