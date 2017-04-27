@@ -1,14 +1,11 @@
 $(document).ready(function() {
 
-<<<<<<< Updated upstream
-	$('.backgroundWrapp').height($(window).height());
-=======
+
   $('.backgroundWrapp, .curtainLeft, .curtainRight').height($(window).height());
   setTimeout(function(){
       $('.curtainLeft').css('left','-330px');
       $('.curtainRight').css('right','-330px');
   },500);
->>>>>>> Stashed changes
 
 	$('.box').hover(function() {
 		$(this).css('opacity', '0.9');
