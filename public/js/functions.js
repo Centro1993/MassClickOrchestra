@@ -45,7 +45,7 @@ function initialiseActiveNotes() {
 
 	$('.active').each(function() {
 		var xCoord = parseInt($(this).attr('class').substring($(this).attr('class').indexOf(' '), $(this).attr('class').lastIndexOf('/')));
-		var yCoord = parseInt($(this).attr('class').substring(9, $(this).attr('class').lastIndexOf(' ')));
+		var yCoord = parseInt($(this).attr('class').substring(9, $(this).attr('class').lastIndexOf(' ')))+1;
 
 		activeNotes[xCoord].push(yCoord);
 		return activeNotes;

@@ -47,6 +47,7 @@ let playTrack = function(currTrack) {
 	let currPos = 0;
 
 	let playBar = function(track, currPos) {
+		console.log(currPos);
 		track[currPos].forEach((ele, ind, arr) => {
 			sound.pitchArray[ele] = sound.play('pitch-' + ele);
 		});
