@@ -33,7 +33,13 @@ sound.pitchArray = [];
 
 sound.playTrack = function() {
 
+	//disable slider while track is playing
+	slider.disabled = true;
+
 	let playBar = function() {
+		//get slider value
+		sound.position = slider.value;
+
 		//get the active pitches from the next bar
 		activeNotes = getActiveNotesForBar(sound.position);
 
@@ -53,12 +59,18 @@ sound.playTrack = function() {
 		else {
 			window.setTimeout(playBar.bind(null), soundLength / 4);
 		}
+
+		//set new slider position
+		slider.value = sound.position;
 	};
 
 	playBar();
 };
 
 sound.pauseTrack = function() {
+	//reenable slider
+	slider.disabled = false;
+
 	//stop all sounds
 	sound.stop();
 	//empty array for active sound id's

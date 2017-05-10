@@ -1,5 +1,7 @@
 $(document).ready(function() {
 
+//save slider
+	let slider = document.getElementById('slider');
 
 	$('.backgroundWrapp, .curtainLeft, .curtainRight').height($(window).height());
 	setTimeout(function() {
