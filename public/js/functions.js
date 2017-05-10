@@ -25,8 +25,8 @@ function createGrid(bars) { //Erstellt Grid
 			$(this).html('');
 		} else {
 			$(this).addClass('active');
-		//	var coords = $(this).attr('class').substring($(this).attr('class').indexOf(' '), $(this).attr('class').lastIndexOf(' '));
-		//	$(this).html(coords);
+			//	var coords = $(this).attr('class').substring($(this).attr('class').indexOf(' '), $(this).attr('class').lastIndexOf(' '));
+			//	$(this).html(coords);
 		}
 	});
 }
@@ -34,7 +34,7 @@ function createGrid(bars) { //Erstellt Grid
 
 //Gibt Array der aktiven Töne zurück
 
-function initialiseActiveNotes() {
+function getActiveNotesForBar(barPosition) {
 
 	var activeNotes = [];
 
@@ -45,13 +45,13 @@ function initialiseActiveNotes() {
 
 	$('.active').each(function() {
 		var xCoord = parseInt($(this).attr('class').substring($(this).attr('class').indexOf(' '), $(this).attr('class').lastIndexOf('/')));
-		var yCoord = parseInt($(this).attr('class').substring(9, $(this).attr('class').lastIndexOf(' ')))+1;
+		var yCoord = parseInt($(this).attr('class').substring(9, $(this).attr('class').lastIndexOf(' '))) + 1;
 
 		activeNotes[xCoord].push(yCoord);
-		return activeNotes;
+		return activeNotes[barPosition];
 	});
 
-	console.dir(activeNotes);
+	console.dir(activeNotes[barPosition]);
 
-	return activeNotes;
+	return activeNotes[barPosition];
 }

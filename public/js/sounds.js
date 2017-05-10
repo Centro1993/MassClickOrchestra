@@ -23,46 +23,57 @@ var sound = new Howl({
 	}
 });
 
+//current track state
 sound.isPlayingFlag = false;
+sound.position = 0;
 //save all sound-id's here
 sound.pitchArray = [];
 
 /* TRACK LOGIC */
 
-let pauseResumeStartTrack = function(track) {
-	if (track !== null) {
-		playTrack(track);
-	} else if (sound.isPlayingFlag) {
-		console.log('pause');
-		sound.pause();
-	} else {
-		console.log('resume');
-		sound.play();
-	}
-	sound.isPlayingFlag = !sound.isPlayingFlag;
-};
+sound.playTrack = function() {
 
-let playTrack = function(currTrack) {
+	let playBar = function() {
+		//get the active pitches from the next bar
+		activeNotes = getActiveNotesForBar(sound.position);
 
-	let currPos = 0;
-
-	let playBar = function(track, currPos) {
-		console.log(currPos);
-		track[currPos].forEach((ele, ind, arr) => {
+		//play all pitches from the next bar
+		activeNotes.forEach((ele, ind, arr) => {
 			sound.pitchArray[ele] = sound.play('pitch-' + ele);
 		});
-		++currPos;
+		++sound.position;
 
-		if (currPos >= bars) {
-			currPos = 0;
-			sound.isPlayingFlag = false;
-			sound.pitchArray = [];
-		} else {
-			window.setTimeout(playBar.bind(null, track, currPos), soundLength / 4);
+		if(!sound.isPlayingFlag) {
+			sound.pauseTrack();
+		}
+		else if (sound.position >= bars) {
+			sound.position = 0;
+			window.setTimeout(playBar.bind(null), soundLength / 4);
+		}
+		else {
+			window.setTimeout(playBar.bind(null), soundLength / 4);
 		}
 	};
 
-	playBar(currTrack, currPos);
+	playBar();
+};
+
+sound.pauseTrack = function() {
+	//stop all sounds
+	sound.stop();
+	//empty array for active sound id's
+	sound.pitchArray = [];
+};
+
+sound.toggleTrack = function() {
+	sound.isPlayingFlag = !sound.isPlayingFlag;
+	if (sound.isPlayingFlag) {
+		console.log('play');
+		sound.playTrack();
+	} else {
+		console.log('pause');
+		sound.pauseTrack();
+	}
 };
 
 /* DEBUG SPACE */

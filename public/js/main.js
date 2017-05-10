@@ -1,11 +1,11 @@
 $(document).ready(function() {
 
 
-  $('.backgroundWrapp, .curtainLeft, .curtainRight').height($(window).height());
-  setTimeout(function(){
-      $('.curtainLeft').css('left','-330px');
-      $('.curtainRight').css('right','-330px');
-  },500);
+	$('.backgroundWrapp, .curtainLeft, .curtainRight').height($(window).height());
+	setTimeout(function() {
+		$('.curtainLeft').css('left', '-330px');
+		$('.curtainRight').css('right', '-330px');
+	}, 500);
 
 	$('.box').hover(function() {
 		$(this).css('opacity', '0.9');
@@ -18,33 +18,32 @@ $(document).ready(function() {
 	});
 
 	$('.playButton').click(function() {
-		var activeNotes = initialiseActiveNotes();
-		pauseResumeStartTrack(activeNotes);
+		sound.toggleTrack();
 	});
 
 
-  //Drag Detection
-  var isDragging = false;
-  var xcoordStart;
-  var xcoordEnd;
-  $(".note")
-  .mousedown(function(e) {
-      isDragging = false;
-      xcoordStart = e.pageX;
-      console.log('mousedown');
+	//Drag Detection
+	var isDragging = false;
+	var xcoordStart;
+	var xcoordEnd;
+	$('.note')
+		.mousedown(function(e) {
+			isDragging = false;
+			xcoordStart = e.pageX;
+			console.log('mousedown');
 
-  })
-  .mousemove(function(e) {
-      isDragging = true;
-      xcoordEnd = e.pageX;
-   })
-  .mouseup(function() {
-      var wasDragging = isDragging;
-      console.log('mouseup');
-      isDragging = false;
-      if (!wasDragging) {
-          console.log('start: '+ xcoordStart + ' end: ' + xcoordEnd);
-      }
-  });
+		})
+		.mousemove(function(e) {
+			isDragging = true;
+			xcoordEnd = e.pageX;
+		})
+		.mouseup(function() {
+			var wasDragging = isDragging;
+			console.log('mouseup');
+			isDragging = false;
+			if (!wasDragging) {
+				console.log('start: ' + xcoordStart + ' end: ' + xcoordEnd);
+			}
+		});
 
 });
