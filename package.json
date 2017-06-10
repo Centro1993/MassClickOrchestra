@@ -24,13 +24,12 @@
     "errorhandler": "^1.0.1",
     "express": "^4.14.0",
     "express-handlebars": "^3.0.0",
+    "express-less": "latest",
     "express-session": "^1.14.0",
     "lodash": "^4.1.0",
     "method-override": "^1.0.0",
     "moment": "^2.14.1",
     "socket.io": "^1.4.5",
-    "express-less":"latest"
-
   },
   "devDependencies": {
     "nodemon": "^1.10.0"
