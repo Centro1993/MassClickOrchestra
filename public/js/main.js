@@ -24,6 +24,8 @@ $(document).ready(function() {
 	});
 
 
+	url  = window.location.href;
+
 	//Drag Detection
 	var isDragging = false;
 	var xcoordStart;
