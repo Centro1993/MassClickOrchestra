@@ -9,7 +9,7 @@ function createGrid(bars) { //Erstellt Grid
 	for (var i = 0; i < tones; i++) { // erstellen der Töne + Bezeichnung
 		x = Math.floor(i / 12);
 		y = i % 12;
-		$('.grid').append('<div class="note ' + x + ' / ' + y + ' " ></div>');
+		$('.grid').append('<div class="note ' + x + 'x' + y + ' " ></div>');
 	}
 
 	var divs = $('.note'); // Töne ins Spalten wrappen
@@ -20,11 +20,31 @@ function createGrid(bars) { //Erstellt Grid
 	$('.grid').css('width', $('.barWrapper').length * 85); // Grid je nach Größte verlängern
 
 	$('.note').click(function() {
+
+		let coords = this.className.split(/\s+/)[1].split('x');
+		console.log(coords);
+		xCoord = coords[0];
+		yCoord = coords[1];
+
 		if ($(this).hasClass('active')) {
 			$(this).removeClass('active');
-			$(this).html('');
+			$(this).html;
+			//tell server that note is not active
+			emitTone({
+				x: xCoord,
+				y: yCoord,
+				active: false
+			});
 		} else {
 			$(this).addClass('active');
+
+			//tell server that note is active
+			emitTone({
+				x: xCoord,
+				y: yCoord,
+				active: true
+			});
+
 			//	var coords = $(this).attr('class').substring($(this).attr('class').indexOf(' '), $(this).attr('class').lastIndexOf(' '));
 			//	$(this).html(coords);
 		}
@@ -55,3 +75,18 @@ function getActiveNotesForBar(barPosition) {
 
 	return activeNotes[barPosition];
 }
+
+//set active tones intially
+initializeGrid = function(grid) {
+
+};
+
+//set active tone class
+setToneActive = function(tone) {
+	console.log(tone);
+	if (tone.active) {
+		$('.' + tone.x + 'x' + tone.y).addClass('active');
+	} else {
+		$('.' + tone.x + 'x' + tone.y).removeClass('active');
+	}
+};

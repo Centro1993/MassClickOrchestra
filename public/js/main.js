@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-//save slider
+	//save slider
 	let slider = document.getElementById('slider');
 
 	$('.backgroundWrapp, .curtainLeft, .curtainRight').height($(window).height());
@@ -24,7 +24,7 @@ $(document).ready(function() {
 	});
 
 
-	url  = window.location.href;
+	url = window.location.href;
 
 	//Drag Detection
 	var isDragging = false;

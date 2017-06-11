@@ -63,12 +63,14 @@ app.start = app.listen = function() {
 // ====================
 let grids = {};
 let clientLastInteraction = {};
-const INTERACTIONWAITINGTIME = 5000;		//time for client to wait after setting a bar
+let socketRooms = {};
+
+const INTERACTIONWAITINGTIME = 5000; //time for client to wait after setting a bar
 
 //check if client is allowed to set a new bar
 var waitingTimeCheck = function(socket) {
-	if(typeof clientLastInteraction[socket] !== 'undefined') {
-		if(Date.now() - clientLastInteraction[socket] > INTERACTIONWAITINGTIME) {
+	if (typeof clientLastInteraction[socket] !== 'undefined') {
+		if (Date.now() - clientLastInteraction[socket] > INTERACTIONWAITINGTIME) {
 			clientLastInteraction[socket] = Date.now();
 			return true;
 		} else {
@@ -80,116 +82,46 @@ var waitingTimeCheck = function(socket) {
 	}
 };
 
+var getGrid = function(room) {
+	if(typeof grids[room] === 'undefined') {
+		grids[room] == {};
+	}
+
+	return grids[room];
+};
+
 //connection handling
 io.on('connection', function(socket) {
 
-	socket.on('role', function(msg) {
-
-		if (msg.role == 'user') {
-
-			//join group which gets the xy updates
-			socket.join('xy');
-
-			console.log(socket.id + ' connected!');
-
-			//add socket to waiting pool
-			waitingSockets.push(socket.id);
-
-			//check current controller
-			controllerCheck();
-
-			//tell socket whether it is the controller or not
-			socket.emit('controlling', {
-				control: (socket.id === controllingSocket),
-				waitingTime: waitingTimeCheck(socket)
-			});
-
-			//send initial values to new user
-			socket.emit('initialize', {
-				'xy': xy
-			});
-		} else {
-			//join group which gets the xy updates
-			console.log('Client joined:');
-			console.log(socket.id);
-
-			socket.join('xy');
-		}
-
+	socket.on('initialize', function(msg) {
+		console.log(msg.room);
+		//join room
+		socket.join(''+msg.room);
+		//save room of socket
+		socketRooms[socket] = msg.room;
+		//send grid of room to user
+		socket.emit('grid', getGrid(msg.room));
 	});
 
-	//let clients check if the controller has changed
-	socket.on('controllercheck', function() {
-		controllerCheck();
-
-		//if socket is not controlling, send it its waiting time
-		if (controllingSocket !== socket.id) {
-			socket.emit('controlling', {
-				control: false,
-				waitingTime: waitingTimeCheck(socket)
-			});
-		}
+	socket.on('tone', function(tone) {
+		console.log(tone);
+		console.log(socketRooms[socket]);
+		socket.broadcast.to(socketRooms[socket]).emit('tone', tone);
 	});
 
-	//replace controller on disconnect/ remove socket from waitinglist
-	socket.on('disconnect', function() {
-		console.log(socket.id + ' disconnected!');
-
-		//check if socket is controller
-		if (socket.id === controllingSocket) {
-
-			//make first socket in waitinglist controller
-			controllingSocket = waitingSockets[0];
-			controllingTimestamp = Date.now();
-
-			//inform new controlling socket
-			io.to(controllingSocket).emit('controlling', {
-				control: true
-			});
-		}
-
-		//check if socket is in waiting list
-		removeWaitingIndex = waitingSockets.indexOf(socket.id);
-
-		if (removeWaitingIndex > -1) {
-			//remove socket from waiting list
-			waitingSockets.splice(removeWaitingIndex, 1);
-		}
-	});
-
-	//handle incoming values
-	socket.on('xy', function(msg) {
-		//only process input from currently controlling socket
-		if (socket.id === controllingSocket) {
-
-			//refresh afk timer
-			lastInputTimestamp = Date.now();
-
-			//broadcast current position to all sockets
-			socket.to('xy').emit('xy', {
-				'xy': msg.xy
-			});
-
-			//save and validate new position, format for arduino
-			xy = [parseInt(msg.xy[0]), parseInt(msg.xy[1])];
-			xy.forEach(function(e, i, a) {
-				//255 / (value / 2)
-				e = e * 2.1;
-				e = Math.floor(e);
-				e = Math.min(255, e);
-				e = Math.max(-255, e);
-				e = -e;
-
-				xy[i] = e;
-			});
-			//console.log('R Value: ' + msg);
-		}
-	});
 });
 
 // ====================
 // Start Server
 // ====================
 
-app.start(PORT);
+//start socket.io listener
+http.listen(PORT, function() {
+});
+
+//start express
+app.start = app.listen = function() {
+	return server.listen.apply(server, arguments);
+};
+
 console.log('Server showing %s listening at http://%s:%s', publicDir, hostname, PORT);
