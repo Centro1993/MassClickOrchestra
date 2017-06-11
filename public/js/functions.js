@@ -78,7 +78,13 @@ function getActiveNotesForBar(barPosition) {
 
 //set active tones intially
 initializeGrid = function(grid) {
-
+	//iterate grid class name (which are in the keys)
+	Object.keys(grid).forEach((key, ind) => {
+		//if grid tone is active, add active class to grid
+		if(grid[key]) {
+			$('.'+key).addClass('active');
+		}
+	});
 };
 
 //set active tone class

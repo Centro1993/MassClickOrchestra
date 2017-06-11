@@ -61,7 +61,7 @@ app.start = app.listen = function() {
 // ====================
 // Socket.io
 // ====================
-let grids = {};
+let grids = [];
 let clientLastInteraction = {};
 let socketRooms = {};
 
@@ -84,7 +84,7 @@ var waitingTimeCheck = function(socket) {
 
 var getGrid = function(room) {
 	if(typeof grids[room] === 'undefined') {
-		grids[room] == {};
+		grids[room] = {};
 	}
 
 	return grids[room];
@@ -99,13 +99,19 @@ io.on('connection', function(socket) {
 		socket.join(''+msg.room);
 		//save room of socket
 		socketRooms[socket] = msg.room;
+
+		//create grid if it does n0t exist
+		let room = getGrid(msg.room);
+		console.log(room);
 		//send grid of room to user
-		socket.emit('grid', getGrid(msg.room));
+		socket.emit('grid', room);
 	});
 
 	socket.on('tone', function(tone) {
 		console.log(tone);
 		console.log(socketRooms[socket]);
+		grids[socketRooms[socket]][tone.x+'x'+tone.y] = tone.active;
+		console.log(grids[socketRooms[socket]]);
 		socket.broadcast.to(socketRooms[socket]).emit('tone', tone);
 	});
 
