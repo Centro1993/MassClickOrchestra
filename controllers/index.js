@@ -19,8 +19,11 @@ router.post('/roomservice', function(req, res) {
 		if(roomValue === 'random'){
 
 		}
+		else if(!isNaN(parseInt(roomValue))) {
+			res.redirect('/orchestra?room='+parseInt(roomValue));
+		}
 		else{
-			res.redirect('/orchestra?room='+roomValue);
+			res.redirect('/?error=404');
 		}
 	}
 	else{

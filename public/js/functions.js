@@ -64,8 +64,10 @@ function getActiveNotesForBar(barPosition) {
 	}
 
 	$('.active').each(function() {
-		var xCoord = parseInt($(this).attr('class').substring($(this).attr('class').indexOf(' '), $(this).attr('class').lastIndexOf('/')));
-		var yCoord = parseInt($(this).attr('class').substring(9, $(this).attr('class').lastIndexOf(' '))) + 1;
+		let coords = this.className.split(' ')[1].split('x');
+
+		var xCoord = parseInt(coords[0]);
+		var yCoord = parseInt(coords[1]);
 
 		activeNotes[xCoord].push(yCoord);
 		return activeNotes[barPosition];
