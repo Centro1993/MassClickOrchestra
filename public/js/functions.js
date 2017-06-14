@@ -100,7 +100,6 @@ setToneActive = function(tone) {
 		var g = 255/user;
 		var b = 255/user;
 		$('.' + tone.x + 'x' + tone.y).css('background',(r,g,b));
-
 	} else {
 		$('.' + tone.x + 'x' + tone.y).removeClass('active');
 	}

@@ -21,10 +21,18 @@ $(document).ready(function() {
 
 	$('.playButton').click(function() {
 		sound.toggleTrack();
+		if(sound.isPlayingFlag){
+			$('.playButton').addClass('pause');
+		}
+		else{
+			$('.playButton').removeClass('pause');
+		}
 	});
 
-	//User Handle
-
+	//Loop Check Handle
+	$('loopCheckBox').change(function() {
+		toggleLoop();
+	});
 	//
 	url  = window.location.href;
 	if(url.indexOf('error=404') != -1){
