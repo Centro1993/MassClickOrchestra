@@ -23,8 +23,9 @@ $(document).ready(function() {
 		sound.toggleTrack();
 	});
 
+	//User Handle
 
-
+	//
 	url  = window.location.href;
 	if(url.indexOf('error=404') != -1){
 		$('.notFound').show();
@@ -33,24 +34,24 @@ $(document).ready(function() {
 	var isDragging = false;
 	var xcoordStart;
 	var xcoordEnd;
-	$('.note')
-		.mousedown(function(e) {
-			isDragging = false;
-			xcoordStart = e.pageX;
-			console.log('mousedown');
-
-		})
-		.mousemove(function(e) {
-			isDragging = true;
-			xcoordEnd = e.pageX;
-		})
-		.mouseup(function() {
-			var wasDragging = isDragging;
-			console.log('mouseup');
-			isDragging = false;
-			if (!wasDragging) {
-				console.log('start: ' + xcoordStart + ' end: ' + xcoordEnd);
-			}
-		});
+	// $('.note')
+	// 	.mousedown(function(e) {
+	// 		isDragging = false;
+	// 		xcoordStart = e.pageX;
+	// 		console.log('mousedown');
+	//
+	// 	})
+	// 	.mousemove(function(e) {
+	// 		isDragging = true;
+	// 		xcoordEnd = e.pageX;
+	// 	})
+	// 	.mouseup(function() {
+	// 		var wasDragging = isDragging;
+	// 		console.log('mouseup');
+	// 		isDragging = false;
+	// 		if (!wasDragging) {
+	// 			console.log('start: ' + xcoordStart + ' end: ' + xcoordEnd);
+	// 		}
+	// 	});
 
 });

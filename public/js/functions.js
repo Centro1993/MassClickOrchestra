@@ -28,7 +28,6 @@ function createGrid(bars) { //Erstellt Grid
 
 		if ($(this).hasClass('active')) {
 			$(this).removeClass('active');
-			$(this).html;
 			//tell server that note is not active
 			emitTone({
 				x: xCoord,
@@ -94,6 +93,14 @@ setToneActive = function(tone) {
 	console.log(tone);
 	if (tone.active) {
 		$('.' + tone.x + 'x' + tone.y).addClass('active');
+		var user = tone.user;
+		console.log(user);
+		$('.' + tone.x + 'x' + tone.y).addClass('user'+user);
+		var r = 255/user;
+		var g = 255/user;
+		var b = 255/user;
+		$('.' + tone.x + 'x' + tone.y).css('background',(r,g,b));
+
 	} else {
 		$('.' + tone.x + 'x' + tone.y).removeClass('active');
 	}
