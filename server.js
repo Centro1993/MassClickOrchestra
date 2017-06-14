@@ -99,7 +99,7 @@ let getUserId = function(room, socketId) {
 
 	if(grids[room].userList.indexOf(socketId) < 0) {
 		grids[room].userList.push(socketId);
-		return grids[room].userList.length;
+		return grids[room].userList.length-1;
 	} else {
 		return grids[room].userList.indexOf(socketId);
 	}
