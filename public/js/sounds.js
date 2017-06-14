@@ -1,7 +1,7 @@
 /* SOUND LOGIC */
 
 //length of a bar
-const soundLength = 2667;
+const soundLength = 2000;
 
 function setSprites() {
 	let obj = {};
