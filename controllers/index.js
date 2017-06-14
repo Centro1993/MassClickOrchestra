@@ -14,11 +14,11 @@ router.get('/orchestra', function(req, res) {
 
 router.post('/roomservice', function(req, res) {
 	var roomValue = req.body.room;
-
+	
 	if(typeof roomValue !== 'undefined' && roomValue !== '' ){
 		if(roomValue === 'random'){
 			var grids = require('../server.js').grids;
-		
+
 			//find last changed grid
 			let lastTimestamp = 0;
 			let room = 0;
