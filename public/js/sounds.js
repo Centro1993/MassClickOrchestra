@@ -6,7 +6,7 @@ const soundLength = 2000;
 function setSprites() {
 	let obj = {};
 
-	for (let i = 0; i <= 11; i++) {
+	for (let i = 0; i <= toneAmount; i++) {
 		let begin = soundLength * i;
 		let end = soundLength;
 		obj['pitch-' + (i + 1)] = [begin, end];
