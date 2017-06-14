@@ -82,8 +82,8 @@ initializeGrid = function(grid) {
 	//iterate grid class name (which are in the keys)
 	Object.keys(grid).forEach((key, ind) => {
 		//if grid tone is active, add active class to grid
-		if(grid[key].active) {
-			$('.'+key).addClass('active');
+		if (grid[key].active) {
+			$('.' + key).addClass('active');
 		}
 	});
 };
@@ -93,13 +93,14 @@ setToneActive = function(tone) {
 	console.log(tone);
 	if (tone.active) {
 		$('.' + tone.x + 'x' + tone.y).addClass('active');
-		var user = tone.user;
-		console.log(user);
-		$('.' + tone.x + 'x' + tone.y).addClass('user'+user);
-		var r = 255/user;
-		var g = 255/user;
-		var b = 255/user;
-		$('.' + tone.x + 'x' + tone.y).css('background',(r,g,b));
+
+		let user = tone.userId+1;
+
+		$('.' + tone.x + 'x' + tone.y).addClass('user' + user);
+		var r = 255 / user;
+		var g = 255 / user;
+		var b = 255 / user;
+		$('.' + tone.x + 'x' + tone.y).css('background', (r, g, b));
 	} else {
 		$('.' + tone.x + 'x' + tone.y).removeClass('active');
 	}

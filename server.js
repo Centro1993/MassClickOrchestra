@@ -82,7 +82,8 @@ var waitingTimeCheck = function(socket) {
 	}
 };
 
-var getGrid = function(room) {
+//create and return a new grid or an existing one
+let getGrid = function(room) {
 	if(typeof grids[room] === 'undefined') {
 		grids[room] = {
 			lastChangedTimestamp: Date.now(),
@@ -91,6 +92,18 @@ var getGrid = function(room) {
 	}
 
 	return grids[room];
+};
+
+//this function assigns and return a unique user id for each socket in a room
+let getUserId = function(room, socketId) {
+
+	if(grids[room].userList.indexOf(socketId) < 0) {
+		grids[room].userList.push(socketId);
+		return grids[room].userList.length;
+	} else {
+		return grids[room].userList.indexOf(socketId);
+	}
+
 };
 
 //connection handling
@@ -114,23 +127,26 @@ io.on('connection', function(socket) {
 	socket.on('tone', function(tone) {
 		console.log(tone);
 		console.log(socket.id);
-		console.log(socketRooms[socket.id]);
+		let room = socketRooms[socket.id];
+		let grid = getGrid(room);
 
 		let newTone = {
 			active: tone.active,
-			userId: socket.id,
+			userId: getUserId(room, socket.id),
 			x: parseInt(tone.x),
 			y: parseInt(tone.y)
 		};
 
+		console.log(newTone);
+
 		//set tone in grid
-		grids[socketRooms[socket.id]][tone.x+'x'+tone.y] = newTone;
+		grid[tone.x+'x'+tone.y] = newTone;
 
 		//set last changed timestamp in grid
-		grids[socketRooms[socket.id]].lastChangedTimestamp = Date.now();
+		grid.lastChangedTimestamp = Date.now();
 
 		//tell other group clients what has changed
-		socket.broadcast.to(socketRooms[socket.id]).emit('tone', newTone);
+		socket.broadcast.to(room).emit('tone', newTone);
 	});
 
 });
