@@ -27,7 +27,7 @@ function createGrid(bars) { //Erstellt Grid
 		yCoord = coords[1];
 
 		if ($(this).hasClass('active')) {
-			$(this).removeClass('active');
+			//$(this).removeClass('active');
 			//tell server that note is not active
 			emitTone({
 				x: xCoord,
@@ -35,7 +35,7 @@ function createGrid(bars) { //Erstellt Grid
 				active: false
 			});
 		} else {
-			$(this).addClass('active');
+			//$(this).addClass('active');
 
 			//tell server that note is active
 			emitTone({
@@ -94,13 +94,13 @@ setToneActive = function(tone) {
 	if (tone.active) {
 		$('.' + tone.x + 'x' + tone.y).addClass('active');
 
-		let user = tone.userId+1;
+		let user = parseInt(tone.userId) + 1;
 
 		$('.' + tone.x + 'x' + tone.y).addClass('user' + user);
 		var r = 255 / user;
 		var g = 255 / user;
 		var b = 255 / user;
-		$('.' + tone.x + 'x' + tone.y).css('background', (r, g, b));
+		$('.' + tone.x + 'x' + tone.y).css('background', 'rgb(' + r + ', ' + g + ', ' + b + ')');
 	} else {
 		$('.' + tone.x + 'x' + tone.y).removeClass('active');
 	}

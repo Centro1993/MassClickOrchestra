@@ -146,7 +146,7 @@ io.on('connection', function(socket) {
 		grid.lastChangedTimestamp = Date.now();
 
 		//tell other group clients what has changed
-		socket.broadcast.to(room).emit('tone', newTone);
+		io.to(room).emit('tone', newTone);
 	});
 
 });
