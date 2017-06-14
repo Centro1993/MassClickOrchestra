@@ -24,8 +24,11 @@ $(document).ready(function() {
 	});
 
 
-	url = window.location.href;
 
+	url  = window.location.href;
+	if(url.indexOf('error=404') != -1){
+		$('.notFound').show();
+	}
 	//Drag Detection
 	var isDragging = false;
 	var xcoordStart;

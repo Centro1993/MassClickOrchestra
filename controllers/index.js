@@ -14,7 +14,6 @@ router.get('/orchestra', function(req, res) {
 
 router.post('/roomservice', function(req, res) {
 	var roomValue = req.body.room;
-	console.log(roomValue);
 	if(typeof roomValue !== 'undefined' && roomValue !== '' ){
 		if(roomValue === 'random'){
 
