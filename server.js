@@ -69,15 +69,15 @@ const INTERACTIONWAITINGTIME = 5000; //time for client to wait after setting a b
 
 //check if client is allowed to set a new bar
 var waitingTimeCheck = function(socket) {
-	if (typeof clientLastInteraction[socket] !== 'undefined') {
-		if (Date.now() - clientLastInteraction[socket] > INTERACTIONWAITINGTIME) {
+	if (typeof clientLastInteraction[socket.id] !== 'undefined') {
+		if (Date.now() - clientLastInteraction[socket.id] > INTERACTIONWAITINGTIME) {
 			clientLastInteraction[socket] = Date.now();
 			return true;
 		} else {
 			return false;
 		}
 	} else {
-		clientLastInteraction[socket] = Date.now();
+		clientLastInteraction[socket.id] = Date.now();
 		return true;
 	}
 };
@@ -85,7 +85,8 @@ var waitingTimeCheck = function(socket) {
 var getGrid = function(room) {
 	if(typeof grids[room] === 'undefined') {
 		grids[room] = {
-			lastChangedTimestamp: Date.now()
+			lastChangedTimestamp: Date.now(),
+			userList: []
 		};
 	}
 
@@ -100,7 +101,7 @@ io.on('connection', function(socket) {
 		//join room
 		socket.join(''+msg.room);
 		//save room of socket
-		socketRooms[socket] = msg.room;
+		socketRooms[socket.id] = msg.room;
 
 		//create grid if it does n0t exist
 		let room = getGrid(msg.room);
@@ -112,16 +113,24 @@ io.on('connection', function(socket) {
 	//receive new tone from client
 	socket.on('tone', function(tone) {
 		console.log(tone);
-		console.log(socketRooms[socket]);
+		console.log(socket.id);
+		console.log(socketRooms[socket.id]);
+
+		let newTone = {
+			active: tone.active,
+			userId: socket.id,
+			x: parseInt(tone.x),
+			y: parseInt(tone.y)
+		};
 
 		//set tone in grid
-		grids[socketRooms[socket]][tone.x+'x'+tone.y] = tone.active;
+		grids[socketRooms[socket.id]][tone.x+'x'+tone.y] = newTone;
 
 		//set last changed timestamp in grid
-		grids[socketRooms[socket]].lastChangedTimestamp = Date.now();
+		grids[socketRooms[socket.id]].lastChangedTimestamp = Date.now();
 
 		//tell other group clients what has changed
-		socket.broadcast.to(socketRooms[socket]).emit('tone', tone);
+		socket.broadcast.to(socketRooms[socket.id]).emit('tone', newTone);
 	});
 
 });
