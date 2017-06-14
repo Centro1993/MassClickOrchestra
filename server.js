@@ -84,7 +84,9 @@ var waitingTimeCheck = function(socket) {
 
 var getGrid = function(room) {
 	if(typeof grids[room] === 'undefined') {
-		grids[room] = {};
+		grids[room] = {
+			lastChangedTimestamp: Date.now()
+		};
 	}
 
 	return grids[room];
@@ -107,15 +109,28 @@ io.on('connection', function(socket) {
 		socket.emit('grid', room);
 	});
 
+	//receive new tone from client
 	socket.on('tone', function(tone) {
 		console.log(tone);
 		console.log(socketRooms[socket]);
+
+		//set tone in grid
 		grids[socketRooms[socket]][tone.x+'x'+tone.y] = tone.active;
-		console.log(grids[socketRooms[socket]]);
+
+		//set last changed timestamp in grid
+		grids[socketRooms[socket]].lastChangedTimestamp = Date.now();
+
+		//tell other group clients what has changed
 		socket.broadcast.to(socketRooms[socket]).emit('tone', tone);
 	});
 
 });
+
+// ====================
+// Export Variables
+// ====================
+
+exports.grids = grids;
 
 // ====================
 // Start Server

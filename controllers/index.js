@@ -14,10 +14,26 @@ router.get('/orchestra', function(req, res) {
 
 router.post('/roomservice', function(req, res) {
 	var roomValue = req.body.room;
-	console.log(roomValue);
+
 	if(typeof roomValue !== 'undefined' && roomValue !== '' ){
 		if(roomValue === 'random'){
+			var grids = require('../server.js').grids;
+		
+			//find last changed grid
+			let lastTimestamp = 0;
+			let room = 0;
 
+			grids.forEach((grid, roomNr) => {
+				if(typeof grid !== 'undefined') {
+					if(grid.lastChangedTimestamp > lastTimestamp) {
+						lastTimestamp = grid.lastChangedTimestamp;
+						room = roomNr;
+					}
+				}
+			});
+
+
+			res.redirect('/orchestra?room='+parseInt(room));
 		}
 		else if(!isNaN(parseInt(roomValue))) {
 			res.redirect('/orchestra?room='+parseInt(roomValue));
