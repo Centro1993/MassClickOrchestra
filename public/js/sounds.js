@@ -40,6 +40,11 @@ sound.playTrack = function() {
 		//get slider value
 		sound.position = slider.value;
 
+		//reset soundposition if at the end of bars
+		if(sound.position == bars) {
+			sound.position = 0;
+		}
+
 		//get the active pitches from the next bar
 		activeNotes = getActiveNotesForBar(sound.position);
 
@@ -52,10 +57,22 @@ sound.playTrack = function() {
 		if(!sound.isPlayingFlag) {
 			sound.pauseTrack();
 		}
-		else if (sound.position >= bars) {
+		//autorepeat if autorepeatcheckbox is set
+		else if (sound.position >= bars && $('.loopCheckBox').prop('checked')) {
 			sound.position = 0;
 			window.setTimeout(playBar.bind(null), soundLength / 4);
+		}	//pause if autorepeat is not set
+		else if (sound.position >= bars) {
+			//reenable slider
+			slider.disabled = false;
+
+			//empty array for active sound id's
+			sound.pitchArray = [];
+
+			//reset play button
+			$('.playButton').removeClass('pause');
 		}
+		//play next bar
 		else {
 			window.setTimeout(playBar.bind(null), soundLength / 4);
 		}

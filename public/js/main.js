@@ -28,12 +28,7 @@ $(document).ready(function() {
 			$('.playButton').removeClass('pause');
 		}
 	});
-
-	//Loop Check Handle
-	$('loopCheckBox').change(function() {
-		toggleLoop();
-	});
-	//
+	
 	url  = window.location.href;
 	if(url.indexOf('error=404') != -1){
 		$('.notFound').show();
