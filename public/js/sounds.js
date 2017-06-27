@@ -41,7 +41,7 @@ sound.playTrack = function() {
 		sound.position = slider.value;
 
 		//reset soundposition if at the end of bars
-		if(sound.position == bars) {
+		if (sound.position == bars) {
 			sound.position = 0;
 		}
 
@@ -51,17 +51,19 @@ sound.playTrack = function() {
 		//play all pitches from the next bar
 		activeNotes.forEach((ele, ind, arr) => {
 			sound.pitchArray[ele] = sound.play('pitch-' + ele);
+			//set fade for new sound
+			sound.fadeAfterTime(1.0, 0.0, 400, sound.pitchArray[ele], soundLength - 400);
 		});
 		++sound.position;
 
-		if(!sound.isPlayingFlag) {
+		if (!sound.isPlayingFlag) {
 			sound.pauseTrack();
 		}
 		//autorepeat if autorepeatcheckbox is set
 		else if (sound.position >= bars && $('.loopCheckBox').prop('checked')) {
 			sound.position = 0;
 			window.setTimeout(playBar.bind(null), soundLength / 4);
-		}	//pause if autorepeat is not set
+		} //pause if autorepeat is not set
 		else if (sound.position >= bars) {
 			//reenable slider
 			slider.disabled = false;
@@ -103,6 +105,17 @@ sound.toggleTrack = function() {
 		console.log('pause');
 		sound.pauseTrack();
 	}
+};
+
+//fade a certain sound after a set amount of time
+sound.fadeAfterTime = function(volIn, volOut, duration, id, timeStart) {
+	window.setTimeout(
+		function() {
+			console.log('wululu');
+			sound.fade(volIn, volOut, duration, id);
+		},
+		timeStart
+	);
 };
 
 /* DEBUG SPACE */

@@ -74,8 +74,6 @@ function getActiveNotesForBar(barPosition) {
 		return activeNotes[barPosition];
 	});
 
-	console.dir(activeNotes[barPosition]);
-
 	return activeNotes[barPosition];
 }
 
