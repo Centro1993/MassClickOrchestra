@@ -3,20 +3,28 @@
 //length of a bar
 const soundLength = 2000;
 
+//cut one long soundfile into many smaller sprites, seprated by tone and instrument
 function setSprites() {
 	let obj = {};
 
-	for (let i = 0; i <= toneAmount; i++) {
-		let begin = soundLength * i;
-		let end = soundLength;
-		obj['pitch-' + (i + 1)] = [begin, end];
-	}
+	instruments.forEach((ele, ind, arr) => {
+		console.log(ele);
+		console.log(ind);
+		for (let i = 0; i <= toneAmount; i++) {
+			console.log(i);
+			let begin = soundLength * i + (toneAmount * ind * soundLength);
+			console.log(begin);
+			let end = soundLength;
+			obj['pitch-' + (i + 1) +'-'+ele] = [begin, end];
+		}
+	});
+	console.dir(obj);
 
 	return obj;
 }
 
 var sound = new Howl({
-	src: ['./sounds/piano.wav', './sounds/piano.mp3', './sounds/piano.webm'],
+	src: ['./sounds/all_mix.wav', './sounds/all_mix.mp3', './sounds/all_mix.webm'],
 	sprite: setSprites(),
 	onloaderror: function(error) {
 		console.log('Howler encountered error: ', error);
@@ -26,6 +34,7 @@ var sound = new Howl({
 //current track state
 sound.isPlayingFlag = false;
 sound.position = 0;
+sound.instrument = 'piano';
 //save all sound-id's here
 sound.pitchArray = [];
 
@@ -40,6 +49,11 @@ sound.playTrack = function() {
 		//get slider value
 		sound.position = slider.value;
 
+		//get active instrument
+		sound.instrument = $('#instrumentSelect').val();
+
+		console.log(sound.instrument);
+
 		//reset soundposition if at the end of bars
 		if (sound.position == bars) {
 			sound.position = 0;
@@ -50,7 +64,7 @@ sound.playTrack = function() {
 
 		//play all pitches from the next bar
 		activeNotes.forEach((ele, ind, arr) => {
-			sound.pitchArray[ele] = sound.play('pitch-' + ele);
+			sound.pitchArray[ele] = sound.play('pitch-' + ele + '-'+ sound.instrument);
 			//set fade for new sound
 			sound.fadeAfterTime(1.0, 0.0, 400, sound.pitchArray[ele], soundLength - 400);
 		});
@@ -107,11 +121,10 @@ sound.toggleTrack = function() {
 	}
 };
 
-//fade a certain sound after a set amount of time
+//fade a certain sound after a set amount of timeg
 sound.fadeAfterTime = function(volIn, volOut, duration, id, timeStart) {
 	window.setTimeout(
 		function() {
-			console.log('wululu');
 			sound.fade(volIn, volOut, duration, id);
 		},
 		timeStart
