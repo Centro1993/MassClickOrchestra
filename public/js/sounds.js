@@ -65,7 +65,8 @@ sound.playTrack = function() {
 		//play all pitches from the next bar
 		activeNotes.forEach((ele, ind, arr) => {
 			sound.pitchArray[ele] = sound.play('pitch-' + ele + '-'+ sound.instrument);
-			//set fade for new sound
+			//set fades at beginning and end for new sound
+			sound.fade(0.0, 1.0, 150, sound.pitchArray[ele]);
 			sound.fadeAfterTime(1.0, 0.0, 400, sound.pitchArray[ele], soundLength - 400);
 		});
 		++sound.position;
