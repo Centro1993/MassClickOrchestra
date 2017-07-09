@@ -33,9 +33,40 @@ body{
   overflow: hidden;
 }
 .loginWrapper{
+	form{
+		margin: 50px auto;
+	}
 	width: 50%;
 	margin: 100px auto;
+	text-align: center;
+	input{
+		border: 1px solid black;
+		padding: 5px 10px;
+	}
+	button{
+		border-radius: none;
+		background-color: black;
+		color: white;
+		border: none;
+		padding: 5px 10px;
+		text-transform: uppercase;
+		cursor: pointer;
+		transition: all 0.3s;
+		-webkit-transition: all 0.3s;
+		-mz-transition: all 0.3s;
+		&:hover{
+			background-color: white;
+			color: black;
+		}
+	}
 	.notFound{
+		text-transform: uppercase;
+		color: red;
+		font-size: 25px;
+		border: 1px solid black;
+		background-color: white;
+		padding: 10px 20px;
+		display: inline-block;
 		display: none;
 	}
 }
@@ -302,4 +333,8 @@ input[type=range]:focus::-ms-fill-upper {
     -webkit-transform: scale(1.1);
     -ms-transform: scale(1.1);
   }
+
+
+
+
 }
