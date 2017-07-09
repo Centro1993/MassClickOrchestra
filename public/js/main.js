@@ -3,7 +3,7 @@ $(document).ready(function() {
 	//save slider
 	let slider = document.getElementById('slider');
 
-	$('.backgroundWrapp, .curtainLeft, .curtainRight').height($(window).height());
+	$('.backgroundWrapp').height($(window).height());
 	setTimeout(function() {
 		$('.curtainLeft').css('left', '-330px');
 		$('.curtainRight').css('right', '-330px');
@@ -28,7 +28,7 @@ $(document).ready(function() {
 			$('.playButton').removeClass('pause');
 		}
 	});
-	
+
 	url  = window.location.href;
 	if(url.indexOf('error=404') != -1){
 		$('.notFound').show();
