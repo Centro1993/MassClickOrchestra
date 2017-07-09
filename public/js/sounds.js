@@ -24,7 +24,7 @@ function setSprites() {
 }
 
 var sound = new Howl({
-	src: ['./sounds/all_mix.wav', './sounds/all_mix.mp3', './sounds/all_mix.webm'],
+	src: ['./sounds/all_mix.mp3', './sounds/all_mix.webm'],
 	sprite: setSprites(),
 	onloaderror: function(error) {
 		console.log('Howler encountered error: ', error);
@@ -66,7 +66,7 @@ sound.playTrack = function() {
 		activeNotes.forEach((ele, ind, arr) => {
 			sound.pitchArray[ele] = sound.play('pitch-' + ele + '-'+ sound.instrument);
 			//set fades at beginning and end for new sound
-			sound.fade(0.0, 1.0, 150, sound.pitchArray[ele]);
+			sound.fade(0.0, 1.0, 50, sound.pitchArray[ele]);
 			sound.fadeAfterTime(1.0, 0.0, 400, sound.pitchArray[ele], soundLength - 400);
 		});
 		++sound.position;
