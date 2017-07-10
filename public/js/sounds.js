@@ -8,17 +8,12 @@ function setSprites() {
 	let obj = {};
 
 	instruments.forEach((ele, ind, arr) => {
-		console.log(ele);
-		console.log(ind);
 		for (let i = 0; i <= toneAmount; i++) {
-			console.log(i);
 			let begin = soundLength * i + (toneAmount * ind * soundLength);
-			console.log(begin);
 			let end = soundLength;
 			obj['pitch-' + (i + 1) +'-'+ele] = [begin, end];
 		}
 	});
-	console.dir(obj);
 
 	return obj;
 }

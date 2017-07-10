@@ -65,6 +65,7 @@ let grids = [];
 let clientLastInteraction = {};
 let socketRooms = {};
 
+/* NOT USED
 const INTERACTIONWAITINGTIME = 5000; //time for client to wait after setting a bar
 
 //check if client is allowed to set a new bar
@@ -81,6 +82,7 @@ var waitingTimeCheck = function(socket) {
 		return true;
 	}
 };
+*/
 
 //create and return a new grid or an existing one
 let getGrid = function(room) {
@@ -103,7 +105,6 @@ let getUserId = function(room, socketId) {
 	} else {
 		return grids[room].userList.indexOf(socketId);
 	}
-
 };
 
 //connection handling
