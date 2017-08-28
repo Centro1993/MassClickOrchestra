@@ -1,18 +1,27 @@
 pipeline {
-  agent any
+  agent {
+      node {
+        label 'docker-agent'
+      }
+  }
   stages {
+    stage('Install') {
+      steps {
+        echo 'Installing..'
+        sh 'npm install'
+      }
+    }
     stage('Build') {
       steps {
-        echo 'Building..'
+        echo 'Building....'
         sh 'docker build -t massclickorchestra .'
       }
     }
     stage('Deploy') {
-      steps {
-        echo 'Deploying....'
-        sh '''docker run -it --rm --name mco massclickorchestra
-'''
-      }
+        steps {
+            echo 'Deploying...'
+            sh '''docker run -it --rm --name mco massclickorchestra
+        }
     }
   }
 }
