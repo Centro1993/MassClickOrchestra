@@ -1,20 +1,13 @@
-# specify the node base image with your desired version node:<version>
-FROM node:latest
-# get and launch application
+FROM node:7.10.1
 
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends pdftk && \
-    apt-get clean
-
-ARG NODE_ENV
-ENV NODE_ENV $NODE_ENV
-COPY package.json /usr/src/app/
-RUN npm install --unsafe-perm  && npm cache clean
-RUN mkdir worker
-COPY . /usr/src/app
+ONBUILD ARG NODE_ENV
+ONBUILD ENV NODE_ENV $NODE_ENV
+ONBUILD COPY package.json /usr/src/app/
+ONBUILD RUN npm install && npm cache clean --force
+ONBUILD COPY . /usr/src/app
 
 EXPOSE 8084
 
