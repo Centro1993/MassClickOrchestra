@@ -10,13 +10,13 @@ pipeline {
     stage('Build') {
       steps {
         echo 'Building....'
-        sh 'docker build -t massclickorchestra .'
+        sh 'docker build -t centro1993/massclickorchestra .'
       }
     }
     stage('Deploy') {
         steps {
             echo 'Deploying...'
-            sh '''docker run -t --rm --name mco massclickorchestra'''
+            sh '''docker run -p 8084:8084 -d centro1993/massclickorchestra'''
         }
     }
   }

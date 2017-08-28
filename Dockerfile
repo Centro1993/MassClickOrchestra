@@ -1,15 +1,17 @@
-FROM node:7.10.1
+FROM node:boron
 
-RUN mkdir -p /usr/src/app
+# Create app directory
 WORKDIR /usr/src/app
 
-ONBUILD ARG NODE_ENV
-ONBUILD ENV NODE_ENV $NODE_ENV
-ONBUILD COPY package.json /usr/src/app/
-ONBUILD RUN npm install && npm cache clean --force
-ONBUILD COPY . /usr/src/app
+# Install app dependencies
+COPY package.json .
+# For npm@5 or later, copy package-lock.json as well
+# COPY package.json package-lock.json ./
+
+RUN npm install
+
+# Bundle app source
+COPY . .
 
 EXPOSE 8084
-
-
 CMD [ "npm", "start" ]
