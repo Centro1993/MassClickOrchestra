@@ -16,7 +16,7 @@ pipeline {
     stage('Deploy') {
         steps {
             echo 'Deploying...'
-            sh '''docker run -it --rm --name mco massclickorchestra
+            sh '''docker run -it --rm --name mco massclickorchestra'''
         }
     }
   }
