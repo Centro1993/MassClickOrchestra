@@ -4,13 +4,14 @@ pipeline {
     stage('Build') {
       steps {
         echo 'Building..'
-        sh 'npm install -y'
+        sh 'docker build -t massclickorchestra .'
       }
     }
     stage('Deploy') {
       steps {
         echo 'Deploying....'
-        sh 'npm start'
+        sh '''docker run -it --rm --name mco massclickorchestra
+'''
       }
     }
   }
