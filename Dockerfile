@@ -1,5 +1,5 @@
 # specify the node base image with your desired version node:<version>
-FROM node:alpine
+FROM node:latest
 # get and launch application
 
 RUN mkdir -p /usr/src/app
