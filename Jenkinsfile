@@ -1,10 +1,5 @@
 pipeline {
   agent any
-
-  environment {
-          IMAGE_NAME = 'centro1993/massclickorchestra'
-      }
-
   stages {
     stage('Install') {
       steps {
@@ -19,11 +14,17 @@ pipeline {
       }
     }
     stage('Deploy') {
-        steps {
-            echo 'Deploying...'
-            sh '''docker rm $(docker stop $(docker ps -a -q --filter ancestor=$IMAGE_NAME --format="{{.ID}}"))'''
-            sh '''docker run -p 8084:8084 -d $IMAGE_NAME'''
-        }
+      steps {
+        echo 'Deploying...'
+        sh '''existing = $(docker ps | grep $IMAGE_NAME | grep -o "^[0-9a-z]*")  
+if [ ! -z "$existing" ]; then  
+  docker stop $existing
+fi'''
+        sh 'docker run -p 8084:8084 -d $IMAGE_NAME'
+      }
     }
+  }
+  environment {
+    IMAGE_NAME = 'centro1993/massclickorchestra'
   }
 }
