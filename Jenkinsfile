@@ -1,5 +1,10 @@
 pipeline {
   agent any
+
+  environment {
+          IMAGE_NAME = 'centro1993/massclickorchestra'
+      }
+
   stages {
     stage('Install') {
       steps {
@@ -10,14 +15,14 @@ pipeline {
     stage('Build') {
       steps {
         echo 'Building....'
-        sh 'docker build -t centro1993/massclickorchestra .'
+        sh 'docker build -t $IMAGE_NAME .'
       }
     }
     stage('Deploy') {
         steps {
             echo 'Deploying...'
-            sh '''docker ps -a -q --filter="name=<massclickorchestra>"'''
-            sh '''docker run -p 8084:8084 -d centro1993/massclickorchestra'''
+            sh '''docker rm $(docker stop $(docker ps -a -q --filter ancestor=$IMAGE_NAME --format="{{.ID}}"))'''
+            sh '''docker run -p 8084:8084 -d $IMAGE_NAME'''
         }
     }
   }
