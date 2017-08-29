@@ -16,15 +16,14 @@ pipeline {
     stage('Deploy') {
       steps {
         echo 'Deploying...'
-        sh '''existing = $(docker ps | grep $IMAGE_NAME | grep -o "^[0-9a-z]*")  
-if [ ! -z "$existing" ]; then  
-  docker stop $existing
-fi'''
-        sh 'docker run -p 8084:8084 -d $IMAGE_NAME'
+        sh 'docker stop $CONTAINER_NAME'
+        sh 'docker rm $CONTAINER_NAME'
+        sh 'docker run -p 8084:8084 -d --name=$CONTAINER_NAME $IMAGE_NAME'
       }
     }
   }
   environment {
     IMAGE_NAME = 'centro1993/massclickorchestra'
+    CONTAINER_NAME = 'mco'
   }
 }
